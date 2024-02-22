@@ -6,7 +6,7 @@ import { CardContent, Typography } from "@mui/material";
 import { Container } from "@mui/material";
 import { useEffect, useState } from "react";
 import { Token } from "@/lib/types";
-import TokenInput from "@/components/token-input";
+import TokenValueInput from "@/components/token-value-input";
 import calculate, { getRandom } from "@/lib/utils";
 import TokenSelector from "@/components/token-selector";
 
@@ -82,7 +82,7 @@ export default function Home() {
               selectedToken={fromToken}
               setSelectedToken={setFromToken}
             />
-            <TokenInput
+            <TokenValueInput
               value={fromTokenValue}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                 const PATTERN = new RegExp("^[0-9]*[.,]?[0-9]*$");
@@ -105,7 +105,7 @@ export default function Home() {
               selectedToken={toToken}
               setSelectedToken={setToToken}
             />
-            <TokenInput
+            <TokenValueInput
               value={toTokenValue}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                 const PATTERN = new RegExp("^[0-9]*[.,]?[0-9]*$");
@@ -122,7 +122,7 @@ export default function Home() {
                   );
                 }
               }}
-            ></TokenInput>
+            ></TokenValueInput>
           </div>
         </CardContent>
       </Card>

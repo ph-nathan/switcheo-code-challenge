@@ -6,7 +6,7 @@ type TokenInputProps = {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void | undefined;
 };
 
-export default function TokenInput({ value, onChange }: TokenInputProps) {
+export default function TokenValueInput({ value, onChange }: TokenInputProps) {
   return (
     <>
       <input
