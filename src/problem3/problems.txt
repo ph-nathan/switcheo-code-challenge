@@ -1,0 +1,28 @@
+List out the computational inefficiencies and anti-patterns found in the code block below.
+
+0. Line 5: FormattedWalletBalance is essentially WalletBalance with one more attribute, hence we can do extend
+
+1. Line 19: children is unused throughout the file, hence here its uneccesary
+
+2. Line 21: It is recommended to add the typing of prices variable to useState<>({}), from the line 77 of the original file,
+we can infer that prices[balance.currency] returns a number, hence prices should be of type Record<string, number>
+
+3. Line 32: uses of any type, here based on the switch statements blockchain should be a string type. 
+Some fixes would be to declare a speperate Blockchain type for the blockchain variable 
+and the current value of each blockchain variable will be an attribute called name.
+
+4. line 34 -> 45: uses of magic numbers, this can either be fixed by using enum or encapsulate priority inside an attribute called priority inside each Blockchain type
+
+5. line 51: balance.blockchain, "balance" variable is of type WalletBalance and WalletBalance
+is an interface, hence it is possible that using generics "balance" will be of a type that implements the WalletBalance interface 
+and hence has the attribute blockchain. But still it would be better to be more specific with the  type for balance as currently
+the reader might misunderstand that WalletBalance has the attribute "blockchain"
+
+6. line 52- 57: lhsPriority was never declared, seems like it should be "balancePriority". Can shorten code by combining the nested if statements
+
+7. line 58 - 66: the sorting function is missing out the case where leftPriority === rightPriority. Can shorten code into one line
+
+8. Line 76: each balance element inside sortedBalance isnt of type FormattedWalletBalance.
+Hence a potential bug here could be mistyping formattedBalances as sortedBalances in line 69
+
+Fixes are in the solution.tsx file
