@@ -194,7 +194,7 @@ export default function Home() {
       <Card className="p-3 text-md w-full h-15 font-roboto rounded-md mx-auto text-center bg-gray-50">
         {fromToken && toToken ? (
           <>
-            <div>Exchange Rate:</div>
+            <div className="font-bold">Exchange Rate</div>
             <div>
               1 {fromToken.currency} ={" "}
               {(fromToken.price / toToken.price).toString()} {toToken.currency}
