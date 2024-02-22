@@ -38,7 +38,20 @@ export default function SwapButton({
   return (
     <>
       <Button
-        className="shadow-md bg-blue-500 text-white rounded-lg hover:bg-blue-400 disabled:bg-gray-300"
+        sx={{
+          "&": {
+            backgroundColor: "",
+            borderRadius: "8px",
+            color: "rgb(255 255 255)",
+          },
+          "&:hover": {
+            backgroundColor: "rgb(96 165 250)",
+          },
+          "&:disabled": {
+            backgroundColor: "rgb(209 213 219)",
+          },
+        }}
+        className="bg-blue-500"
         variant="outlined"
         onClick={handleClickOpen}
         disabled={
@@ -49,7 +62,6 @@ export default function SwapButton({
           !fromToken ||
           !toToken
         }
-        
       >
         Swap
       </Button>
