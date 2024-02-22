@@ -111,12 +111,20 @@ export default function Home() {
         </>
       )}
       <Paper
+        sx = {{
+          borderRadius: "24px",
+        }}
         elevation={3}
-        className="text-2xl sm:text-2xl font-bold text-center opacity-75 rounded-3xl sm:w-[50%] mx-auto p-3 "
+        className="text-2xl sm:text-2xl font-bold text-center opacity-75 sm:w-[50%] mx-auto p-3 "
       >
         Token Swapper
       </Paper>
-      <Card className="rounded-xl opacity-90 shadow-lg">
+      <Card 
+      sx= {{
+        borderRadius: "12px",
+        opacity: "0.9",
+      }}
+      >
         <CardContent className="flex flex-col gap-3">
           <span className="font-bold">From:</span>
           <div id="from-token" className="flex gap-3">
