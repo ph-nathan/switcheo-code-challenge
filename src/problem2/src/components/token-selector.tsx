@@ -120,11 +120,13 @@ export default function TokenSelector({
       >
         {selectedToken ? (
           <div className="flex px-0.5">
+            <div className="hidden sm:block">
             <Avatar
-              className="w-6 h-6 mr-2 hidden sm:block"
+              className="w-6 h-6 mr-2 "
               src={`https://raw.githubusercontent.com/Switcheo/token-icons/main/tokens/${selectedToken.currency}.svg`}
               alt={selectedToken.currency}
             ></Avatar>
+            </div>
             <div className="flex flex-wrap items-center">
               <span className="whitespace-nowrap">
                 {selectedToken.currency}
