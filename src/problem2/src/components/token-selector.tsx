@@ -6,7 +6,7 @@ import Dialog from "@mui/material/Dialog";
 import { useState } from "react";
 import { Token } from "@/lib/types";
 import Avatar from "@mui/material/Avatar";
-import { DialogContent } from "@mui/material";
+import { AppBar, DialogContent, Toolbar } from "@mui/material";
 
 type TokenSelectorDialogProps = {
   isOpen: boolean;
@@ -34,50 +34,68 @@ function TokenSelectorDialog({
   );
   return (
     <Dialog
-      className="flex flex-col max-h-[75%] overflow-y-scroll no-scrollbar m-auto"
+      className="flex flex-col max-h-[80%] overflow-y-scroll no-scrollbar m-auto"
       onClose={() => handleClose(selectedToken)}
       open={isOpen}
-      PaperProps={{ style: { width: '400px', height: '500px', position: 'relative' } }} 
+      PaperProps={{
+        style: {
+          width: "500px",
+          height: "600px",
+          position: "relative",
+          borderRadius: "1rem",
+        },
+      }}
     >
-      <Button
-        style={{ position: 'absolute', top: 0, right: 0 }}
-        color="inherit"
-        onClick={() => handleClose(selectedToken)}
-      >
-        X
-      </Button>
-      <DialogTitle>Select Token</DialogTitle>
+      <AppBar position="static">
+        <Toolbar>
+          <div className="font-roboto">Select Token</div>
+          <Button
+            className="absolute top-3 right-0 "
+            color="inherit"
+            onClick={() => handleClose(selectedToken)}
+          >
+            X
+          </Button>
+        </Toolbar>
+      </AppBar>
       <DialogContent className="flex flex-col gap-y-3 py-2">
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col pt-2">
           <input
-            className="w-4/5 border"
+            className="border font-roboto pl-2 rounded-lg h-8"
             type="text"
             placeholder="Search..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
         </div>
-        {filteredTokens.map((token: Token, index: number) => (
-          <div key={index}>
-            <Button
-              className="w-full flex justify-start px-2 py-1 h-fit"
-              variant="outlined"
-              onClick={() => {
-                handleClose(token);
-              }}
-            >
-              <Avatar
-                className="w-8 h-8 mr-2"
-                src={`https://raw.githubusercontent.com/Switcheo/token-icons/main/tokens/${token.currency}.svg`}
-                alt={token.currency}
-              />
-              <div className="flex flex-col justify-start items-start">
-                <span className="">{token.currency}</span>
-                <span className="">${token.price}</span>
-              </div>
-            </Button>
+        {filteredTokens.length === 0 ? (
+          <div className="pl-2 font-roboto text-center">
+            <h2 className="text-zinc-500 text-xl">No token found.</h2>
+            <p className="text-zinc-300 text-base">Looks like this token doesn&apos;t exist.</p>
           </div>
-        ))}
+        ) : (
+          filteredTokens.map((token: Token, index: number) => (
+            <div key={index}>
+              <Button
+                className="w-full flex justify-start px-2 py-1 h-fit rounded-lg"
+                variant="outlined"
+                onClick={() => {
+                  handleClose(token);
+                }}
+              >
+                <Avatar
+                  className="w-8 h-8 mr-2"
+                  src={`https://raw.githubusercontent.com/Switcheo/token-icons/main/tokens/${token.currency}.svg`}
+                  alt={token.currency}
+                />
+                <div className="flex flex-col justify-start items-start">
+                  <span className="">{token.currency}</span>
+                  <span className="">${token.price}</span>
+                </div>
+              </Button>
+            </div>
+          ))
+        )}
       </DialogContent>
     </Dialog>
   );
@@ -98,7 +116,7 @@ export default function TokenSelector({
   return (
     <>
       <Button
-        className="flex items-center rounded-md text-sm"
+        className="flex items-center rounded-md text-sm w-100"
         variant="outlined"
         onClick={() => setIsOpen(true)}
       >
@@ -106,10 +124,10 @@ export default function TokenSelector({
           <>
             <Avatar
               className="w-6 h-6 mr-2"
+              
               src={`https://raw.githubusercontent.com/Switcheo/token-icons/main/tokens/${selectedToken.currency}.svg`}
               alt={selectedToken.currency}
             >
-              {/* fallback ava <Avatar src = "/> */}
             </Avatar>
             {selectedToken.currency}
           </>

@@ -10,7 +10,7 @@ export default function TokenValueInput({ value, onChange }: TokenInputProps) {
   return (
     <>
       <input
-        className=""
+        className="w-full border rounded-md pl-3"
         type="text"
         pattern="^[0-9]*[.,]?[0-9]*$"
         placeholder="0.0"
