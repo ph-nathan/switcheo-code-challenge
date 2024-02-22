@@ -142,21 +142,21 @@ export default function Home() {
               setSelectedToken={setFromToken}
             />
           </div>
-          <IconButton
-            className="mt-9"
-            size="medium"
-            onClick={handleSwitch}
-            sx={{
-              borderRadius: "90%",
-              mx: "auto",
-              my: "auto",
-              "&": {
-                padding: "0px",
-              },
-            }}
-          >
-            <SwapVertIcon sx={{ width: "100px", height: "60px" }} />
-          </IconButton>
+          <div className="mx-auto mt-9">
+            <IconButton
+              size="medium"
+              onClick={handleSwitch}
+              sx={{
+                borderRadius: "90%",
+                mx: "auto",
+                "&": {
+                  padding: "0px",
+                },
+              }}
+            >
+              <SwapVertIcon sx={{ width: "100px", height: "60px" }} />
+            </IconButton>
+          </div>
           <span className="font-bold">To:</span>
           <div id="to-token" className="flex space-x-3">
             <TokenValueInput
