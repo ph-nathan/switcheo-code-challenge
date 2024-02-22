@@ -45,11 +45,10 @@ function TokenSelectorDialog({
         },
       }}
     >
-      <AppBar position="static">
-        <Toolbar>
+      <AppBar position="static" >
+        <Toolbar className="flex justify-between"> 
           <div className="font-roboto">Select Token</div>
           <Button
-            className="absolute top-3 right-0 "
             color="inherit"
             onClick={() => handleClose(selectedToken)}
           >
