@@ -41,7 +41,7 @@ export default function SwapButton({
        only the "&" background color attribute is broken and now is 3am already */}
 
       <button
-        className="shadow-md w-full text-white bg-blue-500 hover:bg-blue-400 disabled:bg-gray-300 rounded-lg py-3 disabled:text-gray-500 duration-300 transition-colors ease-in-out"
+        className="shadow-md w-full text-white bg-blue-500 hover:bg-blue-400 disabled:bg-gray-300 rounded-xl py-3 disabled:text-gray-500 duration-300 transition-colors ease-in-out"
         onClick={handleClickOpen}
         disabled={
           Number(fromTokenValue) == 0 ||
