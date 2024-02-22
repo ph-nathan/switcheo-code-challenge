@@ -1,7 +1,7 @@
 "use client";
 
 import Card from "@mui/material/Card";
-import { CardContent, Paper, Typography } from "@mui/material";
+import { CardContent, Container, Paper, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { Token } from "@/lib/types";
 import TokenValueInput from "@/components/token-value-input";
@@ -10,7 +10,7 @@ import TokenSelector from "@/components/token-selector";
 import SwapVertIcon from "@mui/icons-material/SwapVert";
 import IconButton from "@mui/material/IconButton";
 import SwapButton from "@/components/swap-button";
-const BASE_URL = "https://interview.switcheo.com/prices.json";
+import { BASE_URL } from "@/lib/utils";
 
 export default function Home() {
   const [fetchedData, setFetchedData] = useState([]);
@@ -36,6 +36,8 @@ export default function Home() {
     setFromTokenValue(toTokenValue);
     setToTokenValue(tempValue);
 
+    setIsToTokenUpdatedByUserInput(false);
+    setIsFromTokenUpdatedByUserInput(false);
     setIsSwitch(!isSwitch);
   };
   // Data fetching
@@ -84,7 +86,7 @@ export default function Home() {
   }, [toTokenValue, fromToken, toToken, isToTokenUpdatedByUserInput]);
 
   return (
-    <main className="flex min-h-screen flex-col px-4 py-16 space-y-6">
+    <main className="flex justify-center min-h-screen mx-auto max-w-[50%] flex-col px-4 py-16 space-y-6 ">
       {isSwitch ? (
         <>
           <div

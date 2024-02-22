@@ -4,7 +4,6 @@ import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import { Token } from "@/lib/types";
 import toast from "react-hot-toast";
@@ -33,7 +32,7 @@ export default function SwapButton({
   };
   const handleSwap = () => {
     setOpen(false);
-    toast.success("Successfully swapped two tokens")
+    toast.success("Successfully swapped two tokens");
   };
 
   return (
@@ -70,7 +69,8 @@ export default function SwapButton({
         <DialogTitle id="alert-dialog-title">Confirm swap?</DialogTitle>
         <DialogContent className="flex flex-col items-center gap-5">
           <h2 className="text-black text-xl text-center">
-            {fromTokenValue} {fromToken?.currency} to {toTokenValue} {toToken?.currency}
+            {fromTokenValue} {fromToken?.currency} to {toTokenValue}{" "}
+            {toToken?.currency}
           </h2>
           <p className="text-red-600 text-base">This action is irreversible</p>
         </DialogContent>

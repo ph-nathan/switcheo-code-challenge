@@ -1,6 +1,5 @@
 "use client";
 import Button from "@mui/material/Button";
-import DialogTitle from "@mui/material/DialogTitle";
 import Dialog from "@mui/material/Dialog";
 
 import { useState } from "react";
@@ -71,7 +70,9 @@ function TokenSelectorDialog({
         {filteredTokens.length === 0 ? (
           <div className="pl-2 font-roboto text-center">
             <h2 className="text-zinc-500 text-xl">No token found.</h2>
-            <p className="text-zinc-300 text-base">Looks like this token doesn&apos;t exist.</p>
+            <p className="text-zinc-300 text-base">
+              Looks like this token doesn&apos;t exist.
+            </p>
           </div>
         ) : (
           filteredTokens.map((token: Token, index: number) => (
@@ -124,11 +125,9 @@ export default function TokenSelector({
           <>
             <Avatar
               className="w-6 h-6 mr-2"
-              
               src={`https://raw.githubusercontent.com/Switcheo/token-icons/main/tokens/${selectedToken.currency}.svg`}
               alt={selectedToken.currency}
-            >
-            </Avatar>
+            ></Avatar>
             {selectedToken.currency}
           </>
         ) : (
