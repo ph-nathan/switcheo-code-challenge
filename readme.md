@@ -1,10 +1,14 @@
 # Switcheo Code Challenge #1 #
+This is an attempt by applicant Pham Quang Nhat.
 
-Note that if you fork this repository, your responses may be publicly linked to this repo.  
-Please submit your application along with the solutions attached or linked.   
 
-It is important that you minimally attempt the problems, even if you do not arrive at a working solution.
+## Problem 1
+3 approaches to tackle sum to n functions in javascript, tested using jest testing library.
 
-## Submission ##
-You can either provide a link to an online repository, attach the solution in your application, or whichever method you prefer.
-We're cool as long as we can view your solution without any pain.
+## Problem 2
+Token swapper web app built with Next.js, TailwindCSS, Material UI and react-hot-toast library [https://ph-nathan-switcheo-code-challenge-two.vercel.app/](https://ph-nathan-switcheo-code-challenge-two.vercel.app/) 
+
+## Problem 3
+The written answers to the spot the bad patterns are included in the .txt file, while the fix is in the solution.tsx file.
+The problems.ts file is for convenience looking up the line number to point out mistakes.
+
