@@ -47,8 +47,8 @@ function TokenSelectorDialog({
     >
       <AppBar position="static">
         <Toolbar className="flex justify-between">
-          <div className="font-roboto">Select Token</div>
-          <Button color="inherit" onClick={() => handleClose(selectedToken)}>
+          <div className="font-roboto ">Select Token</div>
+          <Button className="absolute right-0 h-full" color="inherit" onClick={() => handleClose(selectedToken)}>
             X
           </Button>
         </Toolbar>
@@ -74,21 +74,22 @@ function TokenSelectorDialog({
           filteredTokens.map((token: Token, index: number) => (
             <div key={index}>
               <Button
-                className="w-full flex flex-col justify-start px-2 py-1 h-fit rounded-lg"
+                className="w-full flex flex-col px-2 pt-3 h-fit rounded-lg"
                 variant="outlined"
                 onClick={() => {
                   handleClose(token);
                 }}
               >
-                <Avatar
-                  className="w-8 h-8 mr-2"
-                  src={`https://raw.githubusercontent.com/Switcheo/token-icons/main/tokens/${token.currency}.svg`}
-                  alt={token.currency}
-                />
-                <div className="flex flex-col justify-start items-start">
-                  <span className="">{token.currency}</span>
-                  <span className="">${token.price}</span>
-                </div>
+                
+                  <Avatar
+                    className="w-8 h-8"
+                    src={`https://raw.githubusercontent.com/Switcheo/token-icons/main/tokens/${token.currency}.svg`}
+                    alt={token.currency}
+                  />
+                  <div className="flex flex-col ">
+                    <span className="pt-1.5">{token.currency}</span>
+                    <span >${token.price}</span>
+                  </div>
               </Button>
             </div>
           ))
@@ -113,14 +114,14 @@ export default function TokenSelector({
   return (
     <>
       <Button
-        className="flex items-center rounded-md text-sm w-100"
+        className="flex items-center rounded-md text-xs sm:text-sm w-[40%] px-2 "
         variant="outlined"
         onClick={() => setIsOpen(true)}
       >
         {selectedToken ? (
-          <>
+          <div className="flex px-0.5">
             <Avatar
-              className="w-6 h-6 mr-2 hidden sm:block flex-shrink-0 "
+              className="w-6 h-6 mr-2 hidden sm:block"
               src={`https://raw.githubusercontent.com/Switcheo/token-icons/main/tokens/${selectedToken.currency}.svg`}
               alt={selectedToken.currency}
             ></Avatar>
@@ -129,7 +130,7 @@ export default function TokenSelector({
                 {selectedToken.currency}
               </span>
             </div>
-          </>
+          </div>
         ) : (
           "Select Token"
         )}

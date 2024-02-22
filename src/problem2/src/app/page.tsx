@@ -86,7 +86,7 @@ export default function Home() {
   }, [toTokenValue, fromToken, toToken, isToTokenUpdatedByUserInput]);
 
   return (
-    <main className="flex justify-center min-h-screen mx-auto max-w-[70%] md:max-w-[40%] flex-col px-4 py-16 space-y-6 ">
+    <main className="flex justify-center min-h-screen mx-auto max-w-[70%] lg:max-w-[45%] flex-col px-4 py-16 space-y-6 ">
       {isSwitch ? (
         <>
           <div
@@ -116,9 +116,9 @@ export default function Home() {
       >
         Token Swapper
       </Paper>
-      <Card className="rounded-lg">
-        <CardContent className="flex flex-col space-y-3">
-          <Typography>From</Typography>
+      <Card className="rounded-lg opacity-90 shadow-lg">
+        <CardContent className="flex flex-col gap-3">
+          <span className="font-bold">From:</span>
           <div id="from-token" className="flex gap-3">
             <TokenValueInput
               value={fromTokenValue}
@@ -143,17 +143,21 @@ export default function Home() {
             />
           </div>
           <IconButton
+            className="mt-9"
+            size="medium"
             onClick={handleSwitch}
             sx={{
-              width: "60px",
-              height: "60px",
-              borderRadius: "80%",
+              borderRadius: "90%",
               mx: "auto",
+              my: "auto",
+              "&": {
+                padding: "0px",
+              },
             }}
           >
-            <SwapVertIcon sx={{ width: "40px", height: "40px" }} />
+            <SwapVertIcon sx={{ width: "100px", height: "60px" }} />
           </IconButton>
-          <Typography>To</Typography>
+          <span className="font-bold">To:</span>
           <div id="to-token" className="flex space-x-3">
             <TokenValueInput
               value={toTokenValue}
@@ -187,7 +191,7 @@ export default function Home() {
         toToken={toToken}
         toTokenValue={toTokenValue}
       />
-      <Card className="p-3 text-md w-full h-15 font-roboto rounded-md mx-auto text-center">
+      <Card className="p-3 text-md w-full h-15 font-roboto rounded-md mx-auto text-center bg-gray-50">
         {fromToken && toToken ? (
           <>
             <div>Exchange Rate:</div>
