@@ -86,7 +86,7 @@ export default function Home() {
   }, [toTokenValue, fromToken, toToken, isToTokenUpdatedByUserInput]);
 
   return (
-    <main className="flex justify-center min-h-screen mx-auto max-w-[50%] flex-col px-4 py-16 space-y-6 ">
+    <main className="flex justify-center min-h-screen mx-auto max-w-[70%] lg:max-w-[45%] flex-col px-4 py-16 space-y-6 ">
       {isSwitch ? (
         <>
           <div
@@ -112,13 +112,13 @@ export default function Home() {
       )}
       <Paper
         elevation={3}
-        className="text-2xl font-bold text-center opacity-75 rounded-md w-[40%] mx-auto"
+        className="text-2xl sm:text-2xl font-bold text-center opacity-75 rounded-3xl sm:w-[50%] mx-auto p-3 "
       >
         Token Swapper
       </Paper>
-      <Card className="rounded-lg">
-        <CardContent className="flex flex-col space-y-3">
-          <Typography>From</Typography>
+      <Card className="rounded-xl opacity-90 shadow-lg">
+        <CardContent className="flex flex-col gap-3">
+          <span className="font-bold">From:</span>
           <div id="from-token" className="flex gap-3">
             <TokenValueInput
               value={fromTokenValue}
@@ -142,18 +142,22 @@ export default function Home() {
               setSelectedToken={setFromToken}
             />
           </div>
-          <IconButton
-            onClick={handleSwitch}
-            sx={{
-              width: "60px",
-              height: "60px",
-              borderRadius: "80%",
-              mx: "auto",
-            }}
-          >
-            <SwapVertIcon sx={{ width: "40px", height: "40px" }} />
-          </IconButton>
-          <Typography>To</Typography>
+          <div className="mx-auto mt-9">
+            <IconButton
+              size="medium"
+              onClick={handleSwitch}
+              sx={{
+                borderRadius: "90%",
+                mx: "auto",
+                "&": {
+                  padding: "0px",
+                },
+              }}
+            >
+              <SwapVertIcon sx={{ width: "100px", height: "60px" }} />
+            </IconButton>
+          </div>
+          <span className="font-bold">To:</span>
           <div id="to-token" className="flex space-x-3">
             <TokenValueInput
               value={toTokenValue}
@@ -187,10 +191,10 @@ export default function Home() {
         toToken={toToken}
         toTokenValue={toTokenValue}
       />
-      <Card className="p-3 text-md w-full h-15 font-roboto rounded-md mx-auto text-center">
+      <Card className="p-3 text-md w-full h-15 font-roboto rounded-md mx-auto text-center bg-gray-50">
         {fromToken && toToken ? (
           <>
-            <div>Exchange Rate:</div>
+            <div className="font-bold">Exchange Rate</div>
             <div>
               1 {fromToken.currency} ={" "}
               {(fromToken.price / toToken.price).toString()} {toToken.currency}
