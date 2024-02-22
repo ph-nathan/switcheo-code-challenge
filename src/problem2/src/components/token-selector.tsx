@@ -45,13 +45,10 @@ function TokenSelectorDialog({
         },
       }}
     >
-      <AppBar position="static" >
-        <Toolbar className="flex justify-between"> 
+      <AppBar position="static">
+        <Toolbar className="flex justify-between">
           <div className="font-roboto">Select Token</div>
-          <Button
-            color="inherit"
-            onClick={() => handleClose(selectedToken)}
-          >
+          <Button color="inherit" onClick={() => handleClose(selectedToken)}>
             X
           </Button>
         </Toolbar>
@@ -77,7 +74,7 @@ function TokenSelectorDialog({
           filteredTokens.map((token: Token, index: number) => (
             <div key={index}>
               <Button
-                className="w-full flex justify-start px-2 py-1 h-fit rounded-lg"
+                className="w-full flex flex-col justify-start px-2 py-1 h-fit rounded-lg"
                 variant="outlined"
                 onClick={() => {
                   handleClose(token);
@@ -123,11 +120,15 @@ export default function TokenSelector({
         {selectedToken ? (
           <>
             <Avatar
-              className="w-6 h-6 mr-2"
+              className="w-6 h-6 mr-2 hidden sm:block flex-shrink-0 "
               src={`https://raw.githubusercontent.com/Switcheo/token-icons/main/tokens/${selectedToken.currency}.svg`}
               alt={selectedToken.currency}
             ></Avatar>
-            {selectedToken.currency}
+            <div className="flex flex-wrap items-center">
+              <span className="whitespace-nowrap">
+                {selectedToken.currency}
+              </span>
+            </div>
           </>
         ) : (
           "Select Token"

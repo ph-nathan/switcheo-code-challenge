@@ -86,7 +86,7 @@ export default function Home() {
   }, [toTokenValue, fromToken, toToken, isToTokenUpdatedByUserInput]);
 
   return (
-    <main className="flex justify-center min-h-screen mx-auto max-w-[50%] flex-col px-4 py-16 space-y-6 ">
+    <main className="flex justify-center min-h-screen mx-auto max-w-[70%] md:max-w-[40%] flex-col px-4 py-16 space-y-6 ">
       {isSwitch ? (
         <>
           <div
@@ -112,7 +112,7 @@ export default function Home() {
       )}
       <Paper
         elevation={3}
-        className="text-2xl font-bold text-center opacity-75 rounded-md w-[40%] mx-auto"
+        className="text-2xl sm:text-2xl font-bold text-center opacity-75 rounded-md sm:w-[50%] mx-auto p-3 "
       >
         Token Swapper
       </Paper>
