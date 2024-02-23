@@ -97,7 +97,7 @@ export default function Home() {
   };
 
   return (
-    <main className="flex justify-center min-h-screen mx-auto max-w-[70%] lg:max-w-[45%] flex-col px-4 py-16 space-y-6 ">
+    <main className="flex justify-center min-h-screen mx-auto max-w-[70%] lg:max-w-[45%] flex-col px-4 pb-16 pt-11 space-y-6 ">
       <GradientBlobs isSwitch={isSwitch} />
       <Paper
         sx={{

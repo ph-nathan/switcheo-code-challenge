@@ -47,7 +47,7 @@ function TokenSelectorDialog({
     >
       <AppBar position="static">
         <Toolbar className="flex justify-between">
-          <div className="font-roboto ">Select Token</div>
+          <div className="font-roboto text-lg ">Select Token</div>
           <Button
             sx={{
               "&": {

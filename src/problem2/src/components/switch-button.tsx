@@ -1,5 +1,5 @@
 import IconButton from "@mui/material/IconButton";
-import SwapVertIcon from "@mui/icons-material/SwapVert"
+import SwapVertIcon from "@mui/icons-material/SwapVert";
 import React from "react";
 
 export default function SwitchButton({
@@ -13,6 +13,7 @@ export default function SwitchButton({
         size="medium"
         onClick={handleSwitch}
         sx={{
+          color: "#3b82f6",
           borderRadius: "90%",
           mx: "auto",
           "&": {
