@@ -7,6 +7,8 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import { Token } from "@/lib/types";
 import toast from "react-hot-toast";
+import Avatar from "@mui/material/Avatar";
+import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 
 type SwapButtonProps = {
   fromToken: Token | null;
@@ -69,13 +71,54 @@ export default function SwapButton({
           },
         }}
       >
-        <DialogTitle id="alert-dialog-title">Confirm swap?</DialogTitle>
-        <DialogContent className="flex flex-col items-center gap-5">
-          <h2 className="text-black text-xl text-center">
-            {fromTokenValue} {fromToken?.currency} to {toTokenValue}{" "}
+        <DialogTitle
+          sx={{
+            backgroundColor: "rgb(59 130 246)",
+            color: "#ffffff",
+            py: "15px",
+          }}
+          id="alert-dialog-title"
+        >
+          Swap Confirmation
+        </DialogTitle>
+        <DialogContent
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            gap: "20px",
+          }}
+        >
+          {fromToken && toToken ? (
+            <div className="pt-8 pb-3 flex items-center gap-x-3">
+              <Avatar
+                sx={{ width: "32px", height: "32px" }}
+                src={`https://raw.githubusercontent.com/Switcheo/token-icons/main/tokens/${
+                  fromToken.currency
+                }.svg`}
+                alt={fromToken.currency}
+              />
+              <ArrowRightAltIcon 
+              />
+              <Avatar
+                sx={{ width: "32px", height: "32px" }}
+                src={`https://raw.githubusercontent.com/Switcheo/token-icons/main/tokens/${
+                  toToken.currency
+                }.svg`}
+                alt={toToken.currency}
+              />
+            </div>
+          ) : (
+            <></>
+          )}
+
+          <div className="flex text-black text-xl justify-center items-center font-roboto p-4 border rounded-xl border-[#3b82f6]">
+            {fromTokenValue} {fromToken?.currency} → {toTokenValue}{" "}
             {toToken?.currency}
-          </h2>
-          <p className="text-red-600 text-base">This action is irreversible</p>
+          </div>
+          <p className="text-red-600 text-base font-roboto bg-red-50 mt-4">
+            This action is irreversible
+          </p>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>

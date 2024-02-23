@@ -1,19 +1,19 @@
 "use client";
 
-import Card from "@mui/material/Card";
-import { CardContent, Container, Paper, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
-import { Token } from "@/lib/types";
-import TokenValueInput from "@/components/token-value-input";
-import calculate, { getRandom } from "@/lib/utils";
-import TokenSelector from "@/components/token-selector";
-import SwapVertIcon from "@mui/icons-material/SwapVert";
-import IconButton from "@mui/material/IconButton";
+import Card from "@mui/material/Card";
+import { CardContent, Paper } from "@mui/material";
 import SwapButton from "@/components/swap-button";
+import GradientBlobs from "@/components/gradient-moving-blobs";
+import TokenRow from "@/components/token-row";
+import SwitchButton from "@/components/switch-button";
+import { ExchangeRateCard } from "@/components/exchange-rate-card";
+import calculate, { getRandom } from "@/lib/utils";
 import { BASE_URL } from "@/lib/utils";
+import { Token } from "@/lib/types";
 
 export default function Home() {
-  const [fetchedData, setFetchedData] = useState([]);
+  const [fetchedData, setFetchedData] = useState<Token[]>([]);
   const [fromToken, setFromToken] = useState<Token | null>(null);
   const [isSwitch, setIsSwitch] = useState<boolean>(false);
   const [fromTokenValue, setFromTokenValue] = useState<string>("0.0");
@@ -27,27 +27,17 @@ export default function Home() {
   const [isToTokenUpdatedByUserInput, setIsToTokenUpdatedByUserInput] =
     useState<boolean>(false);
 
-  const handleSwitch = () => {
-    const tempToken = fromToken;
-    setFromToken(toToken);
-    setToToken(tempToken);
-
-    const tempValue = fromTokenValue;
-    setFromTokenValue(toTokenValue);
-    setToTokenValue(tempValue);
-
-    setIsToTokenUpdatedByUserInput(false);
-    setIsFromTokenUpdatedByUserInput(false);
-    setIsSwitch(!isSwitch);
-  };
-  // Data fetching
-  useEffect(() => {
-    fetch(BASE_URL)
+  const initializeData = (url: string) => {
+    fetch(url)
       .then((res) => {
         if (res.ok) {
           return res.json();
         }
-        throw new Error("Error in fetching data");
+        // error handling in line below adapted from
+        // https://stackoverflow.com/questions/40408219/how-to-get-readable-error-response-from-javascript-fetch-api
+        return res.text().then((text) => {
+          throw new Error(text);
+        });
       })
       .then((data) => {
         const filteredData = data.filter(
@@ -62,7 +52,14 @@ export default function Home() {
 
         setFromToken(filteredData[getRandom(min, max)]);
         setToToken(filteredData[getRandom(min, max)]);
+      })
+      .catch((error) => {
+        console.log("Error in fetching data: ", error);
       });
+  };
+  // Data fetching
+  useEffect(() => {
+    initializeData(BASE_URL);
   }, []);
 
   // intended: update toTokenValue only when fromTokenValue is changed by user input
@@ -85,33 +82,25 @@ export default function Home() {
     }
   }, [toTokenValue, fromToken, toToken, isToTokenUpdatedByUserInput]);
 
+  const handleSwitch = () => {
+    const tempToken = fromToken;
+    setFromToken(toToken);
+    setToToken(tempToken);
+
+    const tempValue = fromTokenValue;
+    setFromTokenValue(toTokenValue);
+    setToTokenValue(tempValue);
+
+    setIsToTokenUpdatedByUserInput(false);
+    setIsFromTokenUpdatedByUserInput(false);
+    setIsSwitch(!isSwitch);
+  };
+
   return (
     <main className="flex justify-center min-h-screen mx-auto max-w-[70%] lg:max-w-[45%] flex-col px-4 py-16 space-y-6 ">
-      {isSwitch ? (
-        <>
-          <div
-            className="bg-[#a0c1fb] absolute top-[-6rem] -z-10 right-[11rem] h-[31.25rem] w-[31.25rem] rounded-full blur-[5rem] sm:w-[68.75rem]
-        dark:bg-[#676394] animate-blob"
-          ></div>
-          <div
-            className="bg-[#fbe2e3] absolute top-[-1rem] -z-10 left-[-35rem] h-[31.25rem] w-[50rem] rounded-full blur-[5rem] sm:w-[68.75rem] md:left-[-33rem] lg:left-[-28rem] xl:left-[-15rem] 2x1:left-[-5rem]
-        dark:bg-[#946263] animate-blob"
-          />
-        </>
-      ) : (
-        <>
-          <div
-            className="bg-[#fbe2e3] absolute top-[-6rem] -z-10 right-[11rem] h-[31.25rem] w-[31.25rem] rounded-full blur-[5rem] sm:w-[68.75rem]
-        dark:bg-[#946263] animate-blob"
-          ></div>
-          <div
-            className="bg-[#a0c1fb] absolute top-[-1rem] -z-10 left-[-35rem] h-[31.25rem] w-[50rem] rounded-full blur-[5rem] sm:w-[68.75rem] md:left-[-33rem] lg:left-[-28rem] xl:left-[-15rem] 2x1:left-[-5rem]
-        dark:bg-[#676394] animate-blob"
-          ></div>
-        </>
-      )}
+      <GradientBlobs isSwitch={isSwitch} />
       <Paper
-        sx = {{
+        sx={{
           borderRadius: "24px",
         }}
         elevation={3}
@@ -119,78 +108,39 @@ export default function Home() {
       >
         Token Swapper
       </Paper>
-      <Card 
-      sx= {{
-        borderRadius: "12px",
-        opacity: "0.9",
-      }}
+      <Card
+        sx={{
+          borderRadius: "12px",
+          opacity: "0.9",
+        }}
       >
-        <CardContent className="flex flex-col gap-3">
-          <span className="font-bold">From:</span>
-          <div id="from-token" className="flex gap-3">
-            <TokenValueInput
-              value={fromTokenValue}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                const PATTERN = new RegExp("^[0-9]*[.,]?[0-9]*$");
-                if (!PATTERN.test(e.target.value)) {
-                  return;
-                }
-                setIsFromTokenUpdatedByUserInput(true);
-                if (fromToken && toToken) {
-                  setFromTokenValue(e.target.value);
-                  setToTokenValue(
-                    calculate(fromTokenValue, fromToken.price, toToken.price)
-                  );
-                }
-              }}
-            />
-            <TokenSelector
-              data={fetchedData}
-              selectedToken={fromToken}
-              setSelectedToken={setFromToken}
-            />
-          </div>
-          <div className="mx-auto mt-9">
-            <IconButton
-              size="medium"
-              onClick={handleSwitch}
-              sx={{
-                borderRadius: "90%",
-                mx: "auto",
-                "&": {
-                  padding: "0px",
-                },
-              }}
-            >
-              <SwapVertIcon sx={{ width: "100px", height: "60px" }} />
-            </IconButton>
-          </div>
-          <span className="font-bold">To:</span>
-          <div id="to-token" className="flex space-x-3">
-            <TokenValueInput
-              value={toTokenValue}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                const PATTERN = new RegExp("^[0-9]*[.,]?[0-9]*$");
-                if (!PATTERN.test(e.target.value)) {
-                  return;
-                }
+        <CardContent className="flex flex-col gap-1">
+          <span className="font-bold pl-1">From:</span>
+          <TokenRow
+            thisTokenValue={fromTokenValue}
+            fetchedData={fetchedData}
+            thisToken={fromToken}
+            otherToken={toToken}
+            setThisToken={setFromToken}
+            setThisTokenValue={setFromTokenValue}
+            setOtherTokenValue={setToTokenValue}
+            setIsThisTokenUpdatedByUserInput={setIsFromTokenUpdatedByUserInput}
+          />
 
-                setIsToTokenUpdatedByUserInput(true);
+          <SwitchButton handleSwitch={handleSwitch} />
 
-                if (fromToken && toToken) {
-                  setToTokenValue(e.target.value);
-                  setFromTokenValue(
-                    calculate(toTokenValue, toToken.price, fromToken.price)
-                  );
-                }
-              }}
-            />
-            <TokenSelector
-              data={fetchedData}
-              selectedToken={toToken}
-              setSelectedToken={setToToken}
-            />
-          </div>
+          <span className="font-bold pl-1">To:</span>
+          <TokenRow
+            thisTokenValue={toTokenValue}
+            fetchedData={fetchedData}
+            thisToken={toToken}
+            otherToken={fromToken}
+            setThisToken={setToToken}
+            setThisTokenValue={setToTokenValue}
+            setOtherTokenValue={setFromTokenValue}
+            setIsThisTokenUpdatedByUserInput={setIsToTokenUpdatedByUserInput}
+          />
+          
         </CardContent>
       </Card>
       <SwapButton
@@ -199,19 +149,7 @@ export default function Home() {
         toToken={toToken}
         toTokenValue={toTokenValue}
       />
-      <Card className="p-3 text-md w-full h-15 font-roboto rounded-md mx-auto text-center bg-gray-50">
-        {fromToken && toToken ? (
-          <>
-            <div className="font-bold">Exchange Rate</div>
-            <div>
-              1 {fromToken.currency} ={" "}
-              {(fromToken.price / toToken.price).toString()} {toToken.currency}
-            </div>
-          </>
-        ) : (
-          <div>Select your Tokens to swap.</div>
-        )}
-      </Card>
+      <ExchangeRateCard fromToken={fromToken} toToken={toToken} />
     </main>
   );
 }
