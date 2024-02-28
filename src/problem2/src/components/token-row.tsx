@@ -45,6 +45,7 @@ export default function TokenRow({
       <TokenSelector
         data={fetchedData}
         selectedToken={thisToken}
+        otherToken={otherToken}
         setSelectedToken={setThisToken}
       />
     </div>
