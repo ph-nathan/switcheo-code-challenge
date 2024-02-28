@@ -49,9 +49,15 @@ export default function Home() {
 
         let min: number = 0;
         let max: number = filteredData.length;
+        let first: number = getRandom(min, max);
+        let second: number;
 
-        setFromToken(filteredData[getRandom(min, max)]);
-        setToToken(filteredData[getRandom(min, max)]);
+        do {
+          second = getRandom(min, max)
+        } while (first === second);
+
+        setFromToken(filteredData[first]);
+        setToToken(filteredData[second]);
       })
       .catch((error) => {
         console.log("Error in fetching data: ", error);

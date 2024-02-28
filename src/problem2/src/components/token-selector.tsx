@@ -10,6 +10,7 @@ import { AppBar, DialogContent, Toolbar } from "@mui/material";
 type TokenSelectorDialogProps = {
   isOpen: boolean;
   selectedToken: Token | null;
+  otherToken: Token | null;
   handleClose: (value: Token | null) => void;
   tokens: Token[];
 };
@@ -17,12 +18,14 @@ type TokenSelectorDialogProps = {
 type TokenSelectorProps = {
   data: Token[];
   selectedToken: Token | null;
+  otherToken: Token | null
   setSelectedToken: React.Dispatch<React.SetStateAction<Token | null>>;
 };
 
 function TokenSelectorDialog({
   isOpen,
   selectedToken,
+  otherToken,
   handleClose,
   tokens,
 }: TokenSelectorDialogProps) {
@@ -91,6 +94,7 @@ function TokenSelectorDialog({
                 }}
                 className="w-full flex flex-col px-2 h-fit rounded-lg"
                 variant="outlined"
+                disabled = {token.currency === selectedToken!.currency || token.currency === otherToken!.currency}
                 onClick={() => {
                   handleClose(token);
                 }}
@@ -116,6 +120,7 @@ function TokenSelectorDialog({
 export default function TokenSelector({
   data,
   selectedToken,
+  otherToken,
   setSelectedToken,
 }: TokenSelectorProps) {
   const [isOpen, setIsOpen] = useState(false);
@@ -154,6 +159,7 @@ export default function TokenSelector({
       <TokenSelectorDialog
         tokens={data}
         selectedToken={selectedToken}
+        otherToken={otherToken}
         isOpen={isOpen}
         handleClose={handleClose}
       />
